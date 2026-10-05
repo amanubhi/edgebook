@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.db
+.DS_Store
+.venv/
+# your own exports stay private
+Fills*.csv
+Performance*.csv
+Orders*.csv
+!samples/sample_*.csv
