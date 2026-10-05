@@ -260,10 +260,11 @@ def analyze(trades):
     comp["Profit factor"] = min(100, (pf or 3) / 2 * 100)
     comp["Avg win / loss"] = min(100, (wl or 3) / 2 * 100)
     comp["Drawdown"] = 100 * (1 - min(1, maxdd / gw)) if gw else 0
-    if len(dn) > 1 and statistics.mean(dn) != 0:
-        comp["Consistency"] = 100 * (1 - min(1, statistics.stdev(dn) / abs(statistics.mean(dn))))
-    else:
-        comp["Consistency"] = 0
+    # Consistency: 60% share of green days (70% green = full marks) + 40% evenness of daily P&L
+    # (coefficient of variation; 0 = perfectly even, 2+ = erratic).
+    dwr = 100 * len(green) / len(days)
+    cv = statistics.stdev(dn) / abs(statistics.mean(dn)) if len(dn) > 1 and statistics.mean(dn) != 0 else 2
+    comp["Consistency"] = 0.6 * min(100, dwr / 70 * 100) + 0.4 * 100 * (1 - min(1, cv / 2))
     weights = {"Win rate": .15, "Profit factor": .25, "Avg win / loss": .20, "Drawdown": .20, "Consistency": .20}
     score = sum(comp[k] * weights[k] for k in comp)
     M = dict(trades=n, net=sum(nets), gross=sum(t["gross"] for t in trades), fees=sum(t["fees"] for t in trades),

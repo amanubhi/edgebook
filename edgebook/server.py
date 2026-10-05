@@ -118,7 +118,7 @@ class H(BaseHTTPRequestHandler):
                     imps = [dict(r) for r in c.execute("SELECT * FROM imports ORDER BY id DESC")]
                     trades, open_pos = all_trades(c)
                     return self.send(200, dict(
-                        data_dir=shown(DATA), imports=imps, open_positions=open_pos,
+                        data_dir=shown(DATA), demo=bool(c.execute("SELECT COUNT(*) > 0 AND SUM(account != 'DEMO-ACCOUNT') = 0 FROM fills").fetchone()[0]), imports=imps, open_positions=open_pos,
                         fills=c.execute("SELECT COUNT(*) FROM fills").fetchone()[0], trades=len(trades),
                         instruments=sorted({t["contract"] for t in trades}),
                         point_values=engine.get_point_values(c),

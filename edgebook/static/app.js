@@ -382,7 +382,7 @@ function render() {
   const route = location.hash.replace("#/", "") || "dashboard";
   renderNav(); renderFilters(route);
   const t = { dashboard: ["Dashboard", viewDashboard], trades: ["Trades", viewTrades], calendar: ["Calendar", viewCalendar], insights: ["Insights", viewInsights], import: ["Import", viewImport], settings: ["Settings", viewSettings] }[route] || ["Dashboard", viewDashboard];
-  $("#title").textContent = t[0];
+  $("#title").innerHTML = esc(t[0]) + (S.st.demo ? ' <span class="chip demo" title="Synthetic sample data, not real trades">Demo data</span>' : "");
   const A = S.A, st = S.st;
   $("#sub").textContent = st.trades ? `${A.empty ? 0 : A.metrics.trades} trades · ${st.first} to ${st.last} · ${st.fills} fills stored` : "Your personal trading journal";
   $("#view").innerHTML = t[1]();

@@ -166,3 +166,5 @@ svg.chart .bar{transition:opacity .12s}svg.chart g.bg:hover .bar{opacity:.8}
   .brand{padding:4px 8px}.side .foot{display:none}.nav{display:flex;flex-wrap:wrap}.nav a{padding:7px 10px}
   main{padding:18px 14px 50px}.c3{grid-column:span 12}.mlist{grid-template-columns:1fr}.cal{grid-template-columns:repeat(7,1fr)}.cal .wk{display:none}.cal .d{min-height:62px;padding:5px}.cal .d .dv{font-size:12px}
 }
+
+.chip.demo{background:#f5b30122;color:#f5b301;font-size:11px;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;margin-left:8px;border:1px solid #f5b30166}
